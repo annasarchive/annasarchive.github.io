@@ -3,90 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anna’s Archive: Architecture, Catalog Index & Technical Documentation</title>
-  <meta name="description" content="In-depth technical analysis and comprehensive guide to Anna's Archive. Explore metadata architecture, catalog indexing mechanisms, domain status history, and open-access search.">
-  <meta name="keywords" content="Anna's Archive, annas archive, annas archive search, metadata aggregator, open library, shadow libraries architecture, digital preservation, isbn lookup, doi search">
-  <meta name="author" content="Digital Preservation & Archival Research">
-  <link rel="canonical" href="https://annasarchive.github.io/">
-
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://annasarchive.github.io/">
-  <meta property="og:title" content="Anna’s Archive: Complete Technical Guide & Universal Catalog">
-  <meta property="og:description" content="Detailed examination of Anna's Archive metadata model, distributed architecture, and integrated open bibliographic search engine.">
-  <meta property="og:image" content="https://annasarchive.github.io/og-image.png">
-
-  <!-- Schema.org JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "TechArticle",
-        "@id": "https://annasarchive.github.io/#article",
-        "headline": "Anna's Archive: Architecture, Technical Analysis, and Open Catalog Guide",
-        "description": "An exhaustive technical analysis of Anna's Archive metadata aggregation, deduplication algorithms, distributed P2P infrastructure, and legal history.",
-        "inLanguage": "en-US",
-        "author": {
-          "@type": "Organization",
-          "name": "Digital Archival Documentation Collective"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Open Knowledge Index"
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://annasarchive.github.io/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is Anna's Archive?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Anna's Archive is an open-source metadata aggregator and digital preservation indexing project launched in late 2022 to consolidate bibliographic records and metadata from various digital collections, scientific databases, and public domain repositories."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How does Anna's Archive aggregate and index metadata?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The platform ingests open bibliographic dumps and catalogs, unifying disparate entries via a deduplication pipeline that maps works by ISBN, DOI, Open Library ID, and cryptographic MD5 file checksums."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What happened to the annas-archive.org domain?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The .org top-level domain was suspended at the registry level following legal actions in United States courts, causing the project's decentralized infrastructure to rely on alternative regional ccTLDs and Tor onion routing."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What are the legal public alternatives for digital books?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Prominent legal repositories include Project Gutenberg for public domain literature, Internet Archive for digitized library materials, Open Library for digital lending, and Directory of Open Access Books (DOAB)."
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
+  <title>Anna’s Archive Index – Universal Open Library & DOI Resolver</title>
+  <meta name="description" content="Direct in-page catalog search engine connected officially to Open Library, Internet Archive, Project Gutenberg, and CrossRef DOI Resolver.">
+  <meta name="keywords" content="open library search, internet archive books, project gutenberg public domain, official doi resolver, free legal epubs, academic papers">
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+  <meta name="theme-color" content="#0f172a">
 
   <style>
     :root {
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --accent: #8b5cf6;
-      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-      --bg: #0f172a;
-      --bg-card: #1e293b;
-      --bg-card-hover: #283548;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+      --bg: #0b1120;
+      --bg-card: #151f32;
+      --bg-card-hover: #1e293b;
       --border: #334155;
       --text: #f8fafc;
       --text-muted: #94a3b8;
@@ -94,7 +25,7 @@
       --success: #10b981;
       --radius: 12px;
       --radius-sm: 8px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
     }
 
     html.light {
@@ -105,7 +36,7 @@
       --text: #0f172a;
       --text-muted: #64748b;
       --text-light: #334155;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -114,18 +45,19 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
       font-size: 16px;
       transition: background-color 0.3s ease;
     }
 
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-    .container-prose { max-width: 840px; margin: 0 auto; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container-prose { max-width: 860px; margin: 0 auto; }
 
+    /* Header */
     header.site-header {
       position: sticky;
       top: 0;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(11, 17, 32, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       z-index: 999;
@@ -149,28 +81,46 @@
       font-size: 1.25rem;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
     }
 
-    .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    .nav-links a:hover { color: var(--primary); }
+    /* Hero & Search */
+    .hero-section { padding: 45px 0 25px; text-align: center; }
 
-    .hero-section { padding: 50px 0 30px; text-align: center; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      color: #60a5fa;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--success);
+      border-radius: 50%;
+    }
 
     .hero-title {
-      font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
       font-weight: 800;
       line-height: 1.2;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       letter-spacing: -0.02em;
     }
 
@@ -181,10 +131,10 @@
     }
 
     .hero-subtitle {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
       max-width: 780px;
-      margin: 0 auto 30px;
+      margin: 0 auto 28px;
     }
 
     .search-card {
@@ -192,7 +142,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
-      max-width: 840px;
+      max-width: 880px;
       margin: 0 auto;
       box-shadow: var(--shadow);
       text-align: left;
@@ -203,21 +153,24 @@
 
     .search-input-group input {
       width: 100%;
-      background: rgba(15, 23, 42, 0.4);
+      background: rgba(11, 17, 32, 0.5);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 14px 16px 14px 42px;
+      padding: 14px 16px 14px 44px;
       color: var(--text);
-      font-size: 1rem;
+      font-size: 1.05rem;
       outline: none;
     }
     html.light .search-input-group input { background: #f8fafc; }
+
+    .search-input-group input:focus { border-color: var(--primary); }
 
     .search-icon-inside {
       position: absolute;
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
+      font-size: 1.1rem;
       color: var(--text-muted);
     }
 
@@ -228,6 +181,7 @@
       padding: 14px 28px;
       border-radius: var(--radius-sm);
       font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
     }
 
@@ -237,94 +191,187 @@
       gap: 8px;
       font-size: 0.82rem;
       color: var(--text-muted);
-      margin-top: 10px;
+      margin-top: 12px;
+      align-items: center;
     }
 
     .query-tag {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      color: var(--primary);
-      padding: 3px 8px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      color: #60a5fa;
+      padding: 4px 10px;
       border-radius: 4px;
       cursor: pointer;
+      text-decoration: none;
     }
+    .query-tag:hover { background: var(--primary); color: #fff; }
+
+    /* Results */
+    #search-results-section { padding: 30px 0 60px; }
 
     .results-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 20px;
-      margin-top: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+      margin-top: 20px;
     }
 
     .book-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .book-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
     }
 
-    .book-card-top { display: flex; gap: 14px; margin-bottom: 12px; }
-    .book-cover { width: 70px; height: 105px; object-fit: cover; border-radius: 4px; background: #334155; }
-    .book-placeholder { width: 70px; height: 105px; background: #1e293b; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .book-card-top { display: flex; gap: 16px; margin-bottom: 14px; }
 
-    .book-info h4 { font-size: 0.98rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
-    .book-author { font-size: 0.85rem; color: var(--primary); margin-bottom: 4px; }
-    .book-meta { font-size: 0.78rem; color: var(--text-muted); }
+    .book-cover {
+      width: 80px;
+      height: 118px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #334155;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
 
-    .btn-action-primary {
+    .book-placeholder {
+      width: 80px;
+      height: 118px;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .book-info { flex: 1; min-width: 0; }
+    .book-info h4 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .book-author {
+      font-size: 0.88rem;
+      color: #60a5fa;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .book-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .meta-tag {
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--text-light);
+    }
+
+    /* Actions Matrix on Card */
+    .actions-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 14px;
+    }
+
+    .btn-main-openlib {
       background: var(--primary);
       color: #fff;
       text-decoration: none;
-      padding: 8px 12px;
+      padding: 10px 12px;
       border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.85rem;
+      font-weight: 700;
+      font-size: 0.88rem;
       text-align: center;
-      display: block;
-      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background-color 0.2s ease;
+    }
+    .btn-main-openlib:hover { background: var(--primary-hover); }
+
+    .sub-actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
     }
 
-    /* Long-Form Prose Styling */
-    section.content-section {
-      padding: 70px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .prose { color: var(--text-light); }
-    .prose h2 { font-size: 2rem; font-weight: 800; color: var(--text); margin: 36px 0 16px; letter-spacing: -0.02em; }
-    .prose h3 { font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 26px 0 12px; }
-    .prose p { margin-bottom: 20px; line-height: 1.8; }
-    .prose ul, .prose ol { margin-bottom: 24px; padding-left: 28px; }
-    .prose li { margin-bottom: 8px; }
-    .prose blockquote {
-      border-left: 4px solid var(--primary);
-      padding: 12px 20px;
-      background: rgba(59, 130, 246, 0.05);
-      margin: 24px 0;
-      font-style: italic;
-    }
-
-    .table-wrapper { overflow-x: auto; margin: 30px 0; border: 1px solid var(--border); border-radius: var(--radius); }
-    table.data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
-    table.data-table th, table.data-table td { padding: 14px 18px; border-bottom: 1px solid var(--border); }
-    table.data-table th { background: rgba(15, 23, 42, 0.7); color: var(--text); }
-    html.light table.data-table th { background: #f1f5f9; }
-
-    .faq-item {
-      background: var(--bg-card);
+    .btn-sub-link {
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 7px 8px;
       border-radius: var(--radius-sm);
-      margin-bottom: 12px;
-      padding: 18px 24px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s ease;
     }
-    .faq-question { font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 8px; }
-    .faq-answer { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .btn-sub-link:hover {
+      background: var(--bg-card-hover);
+      border-color: #60a5fa;
+      color: #fff;
+    }
+
+    .btn-doi-full {
+      grid-column: 1 / -1;
+      background: #059669;
+      color: #fff;
+      border-color: #10b981;
+    }
+    .btn-doi-full:hover { background: #047857; }
+
+    .spinner {
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(37, 99, 235, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     footer.site-footer {
-      background: #090d16;
+      background: #060a12;
+      border-top: 1px solid var(--border);
       padding: 40px 0 20px;
       text-align: center;
       color: var(--text-muted);
@@ -332,368 +379,270 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .search-input-wrapper { flex-direction: column; }
+      .sub-actions-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Site Header -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="#" class="logo-container">
         <span>📚</span>
-        <span>Anna’s Archive Index</span>
+        <span>Universal Open Index</span>
       </a>
 
-      <nav aria-label="Main Navigation">
-        <ul class="nav-links">
-          <li><a href="#search">Catalog Search</a></li>
-          <li><a href="#architecture">Architecture</a></li>
-          <li><a href="#metadata">Data Models</a></li>
-          <li><a href="#legal-history">Domain History</a></li>
-          <li><a href="#comparison">Comparison Matrix</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero & Search Section -->
-    <section class="hero-section" id="search">
+    <section class="hero-section">
       <div class="container">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span>Verified Direct Resolvers: Open Library • Internet Archive • Gutenberg • DOI</span>
+        </div>
+
         <h1 class="hero-title">
-          Anna’s Archive: <span class="gradient-text">Architecture, Indexing & Open Search</span>
+          Universal Catalog & <span class="gradient-text">Public Domain Resolver</span>
         </h1>
         <p class="hero-subtitle">
-          An exhaustive technical guide to modern shadow library metadata aggregation, decentralized peer-to-peer storage, and in-page bibliographic lookup.
+          Real-time bibliographic search engine routing queries directly to official, 100% stable endpoints without redirects.
         </p>
 
         <div class="search-card">
-          <form onsubmit="handleInPageSearch(event)">
+          <form onsubmit="executeLiveSearch(event)">
             <div class="search-input-wrapper">
               <div class="search-input-group">
                 <span class="search-icon-inside">🔍</span>
                 <input 
                   type="text" 
-                  id="live-search-input" 
-                  placeholder="Query book title, author, ISBN (e.g. 9780131103627), or DOI (e.g. 10.1038/...)" 
+                  id="search-query-input" 
+                  placeholder="Enter Title, Author, ISBN-13 (e.g. 9780131103627), or DOI (e.g. 10.1038/...)" 
                   required
                 >
               </div>
-              <button type="submit" class="search-btn">Search Catalog</button>
+              <button type="submit" class="search-btn">Search Catalog ⚡</button>
             </div>
 
             <div class="popular-queries">
-              <span>Trending queries:</span>
-              <span class="query-tag" onclick="fillQuery('Artificial Intelligence: A Modern Approach')">AI: Modern Approach</span>
-              <span class="query-tag" onclick="fillQuery('9780131103627')">The C Programming Language</span>
-              <span class="query-tag" onclick="fillQuery('10.1038/s41586-020-2649-2')">CRISPR Nature (DOI)</span>
-              <span class="query-tag" onclick="fillQuery('Structure and Interpretation of Computer Programs')">SICP</span>
+              <span>Quick tests:</span>
+              <a class="query-tag" onclick="quickSearch('The Great Gatsby')">The Great Gatsby</a>
+              <a class="query-tag" onclick="quickSearch('9780131103627')">C Programming (ISBN)</a>
+              <a class="query-tag" onclick="quickSearch('10.1038/s41586-020-2649-2')">CRISPR Nature (DOI)</a>
+              <a class="query-tag" onclick="quickSearch('Frankenstein Mary Shelley')">Frankenstein</a>
+              <a class="query-tag" onclick="quickSearch('Calculus Stewart')">Stewart Calculus</a>
             </div>
           </form>
-
-          <div id="results-wrapper" style="display: none; margin-top: 24px;">
-            <h3 id="results-count" style="font-size: 1.1rem; margin-bottom: 12px;"></h3>
-            <div id="results-grid" class="results-grid"></div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Deep-Dive Section 1: Overview & History -->
-    <section class="content-section" id="overview">
-      <div class="container container-prose prose">
-        <h2>What is Anna’s Archive? Genesis and Mission</h2>
-        <p>
-          <strong>Anna’s Archive</strong> was founded in late 2022 by a collective of pseudonymous archivists operating under the moniker "Anna." The initiative emerged directly following major law enforcement actions against centralized digital repositories, most notably the seizure of domain registries and infrastructure associated with Z-Library in November 2022.
-        </p>
-        <p>
-          Unlike conventional digital collections that store files directly on a single centralized cluster of web servers, Anna’s Archive was conceived fundamentally as a <strong>meta-search engine and open metadata aggregator</strong>. Its primary objective is the permanent preservation of all human knowledge—books, scientific research articles, periodicals, and instructional media—by indexing, cross-referencing, and deduplicating bibliographic records across distributed archives.
-        </p>
-
-        <blockquote>
-          "The mission is universal preservation: ensuring that humanity’s recorded literature, scientific breakthroughs, and historical documentation cannot be permanently erased by server seizures, domain cancellations, or digital obsolescence."
-        </blockquote>
-
-        <p>
-          Named in homage to both open-access pioneers and digital library collectives, the project positions itself as a backup repository of record. Rather than producing new digital scans, Anna’s Archive catalogs existing repositories, including <strong>Library Genesis (LibGen)</strong>, <strong>Sci-Hub</strong>, <strong>Z-Library</strong>, <strong>DuXiu</strong> (a vast Chinese academic scanning consortium), and the <strong>Internet Archive</strong>.
-        </p>
-      </div>
-    </section>
-
-    <!-- Deep-Dive Section 2: Architecture & Deduplication -->
-    <section class="content-section" id="architecture">
-      <div class="container container-prose prose">
-        <h2>Technical Architecture & The Metadata Pipeline</h2>
-        <p>
-          At scale, handling records for over 100 million distinct publications introduces complex engineering hurdles. The Anna’s Archive infrastructure relies on several architectural pillars:
-        </p>
-
-        <h3>1. The Ingestion & Normalization Engine</h3>
-        <p>
-          The pipeline ingests multi-gigabyte database dumps from distinct sources, each utilizing incompatible data structures:
-        </p>
-        <ul>
-          <li><strong>MARC / ONIX Records:</strong> Traditional library metadata standardizing author authority, publisher data, and subject classifications.</li>
-          <li><strong>Crossref & PubMed Central (PMC):</strong> Structured XML metadata defining Digital Object Identifiers (DOIs), abstracts, and publication timelines.</li>
-          <li><strong>Raw Filename Scraping:</strong> Unstructured titles and author strings parsed from torrent networks and direct repositories.</li>
-        </ul>
-
-        <h3>2. The Cryptographic Reconciliation Algorithm</h3>
-        <p>
-          A critical challenge in building a unified meta-index is eliminating duplicate listings. The same textbook or novel may exist across LibGen, Z-Library, and Internet Archive under differing file names, compression types, and formats.
-        </p>
-        <p>
-          Anna’s Archive resolves this via a multi-tiered deduplication algorithm:
-        </p>
-        <ol>
-          <li><strong>Primary Hash Lookup:</strong> Every file payload is hashed using MD5, SHA-1, and SHA-256. Identical cryptographic hashes are instantly merged into a single canonical catalog record.</li>
-          <li><strong>Standard Identifier Clustering:</strong> Works sharing identical ISBN-13 (International Standard Book Number) or DOI strings are correlated.</li>
-          <li><strong>Fuzzy String Matching:</strong> For works lacking universal identifiers, text normalization engines strip non-alphanumeric punctuation and calculate Levenshtein distance on normalized Title + Author pairs.</li>
-        </ol>
-
-        <h3>3. Peer-to-Peer Preservation (BitTorrent & IPFS)</h3>
-        <p>
-          To maintain resilience against takedowns, the complete data catalog, metadata dumps, and binary collections are distributed via <strong>BitTorrent packages</strong> (chunked in 100GB to 500GB segments) and pinned to <strong>IPFS (InterPlanetary File System)</strong> content identifiers (CIDs). This architecture allows third-party mirror operators worldwide to host and verify identical datasets without relying on central servers.
-        </p>
-      </div>
-    </section>
-
-    <!-- Deep-Dive Section 3: Legal History & Domain Evolution -->
-    <section class="content-section" id="legal-history">
-      <div class="container container-prose prose">
-        <h2>Legal Status, Controversies, and Domain Registry Seizures</h2>
-        <p>
-          The operation of large-scale shadow libraries operates in persistent conflict with international copyright frameworks, including the Digital Millennium Copyright Act (DMCA) in the United States and the EU Copyright Directive.
-        </p>
-        
-        <h3>The OCLC Lawsuit & The .org Suspension</h3>
-        <p>
-          In early 2024, the Online Computer Library Center (OCLC) filed a high-profile federal lawsuit against Anna's Archive in the United States, alleging unauthorized harvesting and public distribution of the proprietary WorldCat bibliographic database.
-        </p>
-        <p>
-          While the operators maintained that bibliographic factual metadata (such as book titles, authors, and publication dates) is not subject to copyright protection, US courts issued preliminary orders. Consequently, the Public Interest Registry (PIR)—the US-based registry managing top-level <code>.org</code> domains—placed <code>annas-archive.org</code> on <code>serverHold</code>. Subsequent actions led to restrictions on secondary European country-code top-level domains (ccTLDs) such as <code>.li</code>.
-        </p>
-        <p>
-          In response, the project migrated its web-routing layers to more resistant jurisdictions and emphasized direct decentralized access via the Tor Onion network, proving the resilient nature of distributed open-source indices.
-        </p>
-      </div>
-    </section>
-
-    <!-- Deep-Dive Section 4: Comparison Matrix -->
-    <section class="content-section" id="comparison">
+    <!-- Search Results Section -->
+    <section id="search-results-section">
       <div class="container">
-        <div class="container-prose prose" style="margin-bottom: 24px;">
-          <h2>Architectural Comparison: Anna’s Archive vs. Other Repositories</h2>
-          <p>
-            Understanding how Anna’s Archive compares to traditional digital libraries, repositories, and historical archival projects:
-          </p>
+        <div id="loading-spinner" style="display: none; text-align: center;">
+          <div class="spinner"></div>
+          <p style="color: var(--text-muted); font-weight: 500;">Searching official catalogs and generating direct resolver endpoints...</p>
         </div>
 
-        <div class="table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Feature / Platform</th>
-                <th>Anna’s Archive</th>
-                <th>Open Library (IA)</th>
-                <th>Library Genesis</th>
-                <th>Project Gutenberg</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Primary Scope</strong></td>
-                <td>Meta-aggregator (Books, Papers, Comics)</td>
-                <td>Public Lending & Cataloging</td>
-                <td>Academic Books & Papers</td>
-                <td>Public Domain Literature</td>
-              </tr>
-              <tr>
-                <td><strong>Indexing Method</strong></td>
-                <td>Automated Cross-Repository Ingestion</td>
-                <td>Community & Library Metadata</td>
-                <td>User Uploads & Scrapes</td>
-                <td>Manual Proofreading</td>
-              </tr>
-              <tr>
-                <td><strong>Decentralized P2P</strong></td>
-                <td>Extensive (Torrents, IPFS CIDs)</td>
-                <td>Server-based / API</td>
-                <td>Torrents / Direct IPFS</td>
-                <td>Mirrors / Direct HTTP</td>
-              </tr>
-              <tr>
-                <td><strong>Codebase License</strong></td>
-                <td>100% Open Source (GitLab)</td>
-                <td>100% Open Source (GitHub)</td>
-                <td>Partially Open Source</td>
-                <td>Public Domain / Open</td>
-              </tr>
-              <tr>
-                <td><strong>Legal Status</strong></td>
-                <td>Subject to Domain Registry Seizures</td>
-                <td>Legal Non-Profit Entity</td>
-                <td>Blocked across multiple ISPs</td>
-                <td>100% Legally Compliant</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Deep-Dive Section 5: FAQ -->
-    <section class="content-section" id="faq">
-      <div class="container container-prose">
-        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 24px;">Frequently Asked Questions (FAQ)</h2>
-
-        <div class="faq-item">
-          <div class="faq-question">Why did the original annas-archive.org domain stop resolving?</div>
-          <div class="faq-answer">
-            The domain was placed on <code>serverHold</code> status by the Public Interest Registry following US federal court orders resulting from copyright lawsuits brought by library consortia and publishers.
+        <div id="results-container" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 id="results-header" style="font-size: 1.3rem;"></h2>
+            <span id="results-count-badge" style="background: rgba(37,99,235,0.15); color: #60a5fa; padding: 4px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 700;"></span>
           </div>
+          <div id="results-grid" class="results-grid"></div>
         </div>
 
-        <div class="faq-item">
-          <div class="faq-question">How does Anna’s Archive differ from LibGen or Sci-Hub?</div>
-          <div class="faq-answer">
-            LibGen and Sci-Hub are discrete repositories that store specific classes of literature (books and journal articles). Anna’s Archive acts as an overarching meta-search layer, pulling data from both networks as well as Z-Library, DuXiu, and open public-domain archives.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">What file formats are predominantly indexed?</div>
-          <div class="faq-answer">
-            The catalog indexes diverse formats: <strong>EPUB</strong> (reflowable text for e-readers), <strong>PDF</strong> (fixed-layout academic papers and textbooks), <strong>DJVU</strong> (high-compression historic document scans), and <strong>CBZ/CBR</strong> (sequential image archives for graphic literature).
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">What are the most reputable legal alternatives for free digital reading?</div>
-          <div class="faq-answer">
-            Users seeking legally verified digital books should consult <strong>Project Gutenberg</strong> (over 70,000 public domain titles), <strong>Internet Archive Open Library</strong> (controlled digital lending), <strong>Standard Ebooks</strong> (high-quality public domain typography), and <strong>Directory of Open Access Books (DOAB)</strong>.
-          </div>
+        <div id="empty-state" style="text-align: center; padding: 50px 20px; background: var(--bg-card); border: 1px dashed var(--border); border-radius: var(--radius); color: var(--text-muted);">
+          <span style="font-size: 2.6rem; display: block; margin-bottom: 8px;">🏛️</span>
+          <h3 style="color: var(--text); margin-bottom: 6px;">Universal Public Repositories Ready</h3>
+          <p>Search any book title, author, standard ISBN, or scientific DOI above to generate direct, operational access links.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Site Footer -->
   <footer class="site-footer">
     <div class="container">
-      <p><strong>Anna’s Archive Technical Documentation & Meta-Search Index</strong></p>
-      <p style="margin-top: 6px;">An academic and technical inquiry into digital preservation networks, open bibliographic standards, and distributed systems.</p>
+      <p>Official Public Access Resolvers: <strong>Open Library</strong> • <strong>Internet Archive</strong> • <strong>Project Gutenberg</strong> • <strong>DOI.org</strong></p>
+      <p style="margin-top: 6px; font-size: 0.8rem;">Clean educational index. All links route directly to official catalog endpoints and legitimate public domain repositories.</p>
     </div>
   </footer>
 
-  <!-- Search Engine Script (Open Library & CrossRef API) -->
   <script>
-    function fillQuery(text) {
-      document.getElementById('live-search-input').value = text;
-      handleInPageSearch(new Event('submit'));
+    function quickSearch(val) {
+      document.getElementById('search-query-input').value = val;
+      executeLiveSearch(new Event('submit'));
     }
 
-    async function handleInPageSearch(e) {
+    async function executeLiveSearch(e) {
       if (e) e.preventDefault();
-      const q = document.getElementById('live-search-input').value.trim();
-      if (!q) return;
+      const query = document.getElementById('search-query-input').value.trim();
+      if (!query) return;
 
-      const resultsWrapper = document.getElementById('results-wrapper');
-      const resultsGrid = document.getElementById('results-grid');
-      const resultsCount = document.getElementById('results-count');
+      const spinner = document.getElementById('loading-spinner');
+      const resultsContainer = document.getElementById('results-container');
+      const emptyState = document.getElementById('empty-state');
 
-      resultsCount.textContent = 'Searching open catalog...';
-      resultsGrid.innerHTML = '';
-      resultsWrapper.style.display = 'block';
+      emptyState.style.display = 'none';
+      resultsContainer.style.display = 'none';
+      spinner.style.display = 'block';
 
       try {
-        const isDoi = /^10\.\d{4,9}\/[-._;()/:A-Za-z0-9]+$/i.test(q);
+        const isDoi = /^10\.\d{4,9}\/[-._;()/:A-Za-z0-9]+$/i.test(query);
         let items = [];
 
         if (isDoi) {
-          const res = await fetch(`https://api.crossref.org/works/${encodeURIComponent(q)}`);
-          if (res.ok) {
-            const data = await res.json();
-            const it = data.message;
-            if (it) {
-              items.push({
-                title: it.title ? it.title[0] : 'Research Article',
-                author: it.author ? it.author.map(a => `${a.given || ''} ${a.family || ''}`).join(', ') : 'Scholarly Collective',
-                year: it.created ? it.created['date-parts'][0][0] : 'N/A',
-                publisher: it['container-title'] ? it['container-title'][0] : 'Journal',
-                doi: it.DOI
-              });
-            }
-          }
+          items = await fetchCrossRefItem(query);
         } else {
-          const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=9`);
-          if (res.ok) {
-            const data = await res.json();
-            items = (data.docs || []).map(doc => ({
-              title: doc.title || 'Untitled',
-              author: doc.author_name ? doc.author_name.slice(0, 2).join(', ') : 'Unknown Author',
-              year: doc.first_publish_year || 'N/A',
-              publisher: doc.publisher ? doc.publisher[0] : 'Open Library',
-              cover: doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : null,
-              key: doc.key,
-              iaId: doc.ia ? doc.ia[0] : null
-            }));
-          }
+          items = await fetchOpenLibraryItems(query);
         }
 
-        renderResults(items, q);
+        renderCards(query, items);
       } catch (err) {
-        console.error(err);
-        resultsCount.textContent = 'Error connecting to open catalog API.';
+        console.error('Error fetching data:', err);
+        alert('Catalog connection notice: Unable to fetch data from open APIs. Please check your network.');
+      } finally {
+        spinner.style.display = 'none';
       }
     }
 
-    function renderResults(items, query) {
-      const resultsGrid = document.getElementById('results-grid');
-      const resultsCount = document.getElementById('results-count');
+    async function fetchOpenLibraryItems(query) {
+      const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=12`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
 
-      resultsCount.textContent = `Found ${items.length} records for "${query}"`;
+      return (data.docs || []).map(doc => {
+        const isbn = doc.isbn ? doc.isbn[0] : (doc.isbn_13 ? doc.isbn_13[0] : null);
+        const cover = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : null;
+
+        return {
+          title: doc.title || 'Untitled Publication',
+          author: doc.author_name ? doc.author_name.slice(0, 2).join(', ') : 'Unknown Author',
+          year: doc.first_publish_year || doc.publish_year?.[0] || 'N/A',
+          publisher: doc.publisher ? doc.publisher[0] : 'Published Edition',
+          isbn: isbn,
+          workKey: doc.key, // e.g., "/works/OL12345W"
+          iaId: doc.ia ? doc.ia[0] : null,
+          cover: cover,
+          type: 'book'
+        };
+      });
+    }
+
+    async function fetchCrossRefItem(doi) {
+      const url = `https://api.crossref.org/works/${encodeURIComponent(doi)}`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
+      const item = data.message;
+      if (!item) return [];
+
+      return [{
+        title: item.title ? item.title[0] : 'Academic Publication',
+        author: item.author ? item.author.map(a => `${a.given || ''} ${a.family || ''}`).join(', ') : 'Scholarly Collective',
+        year: item.created ? item.created['date-parts'][0][0] : 'Recent',
+        publisher: item['container-title'] ? item['container-title'][0] : 'Scientific Journal',
+        doi: item.DOI,
+        isbn: null,
+        workKey: null,
+        iaId: null,
+        cover: null,
+        type: 'paper'
+      }];
+    }
+
+    function renderCards(query, items) {
+      const container = document.getElementById('results-container');
+      const header = document.getElementById('results-header');
+      const countBadge = document.getElementById('results-count-badge');
+      const grid = document.getElementById('results-grid');
+
+      header.textContent = `Results for "${query}"`;
+      countBadge.textContent = `${items.length} works found`;
+      grid.innerHTML = '';
 
       if (items.length === 0) {
-        resultsGrid.innerHTML = '<p style="grid-column: 1/-1; color: var(--text-muted);">No records found in open access indexes.</p>';
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 30px;">No exact records found in open metadata indexes.</p>';
+        container.style.display = 'block';
         return;
       }
 
-      items.forEach(it => {
+      items.forEach(item => {
         const card = document.createElement('div');
         card.className = 'book-card';
 
-        const coverHtml = it.cover
-          ? `<img src="${it.cover}" class="book-cover" alt="Cover" loading="lazy">`
-          : `<div class="book-placeholder">${it.doi ? '🔬' : '📖'}</div>`;
+        // 1. Open Library Link
+        const openLibUrl = item.workKey 
+          ? `https://openlibrary.org${item.workKey}` 
+          : (item.isbn ? `https://openlibrary.org/isbn/${item.isbn}` : `https://openlibrary.org/search?q=${encodeURIComponent(item.title)}`);
 
-        const linkUrl = it.doi
-          ? `https://doi.org/${encodeURIComponent(it.doi)}`
-          : (it.iaId ? `https://archive.org/details/${encodeURIComponent(it.iaId)}` : `https://openlibrary.org${it.key}`);
+        // 2. Internet Archive Direct Link
+        const iaUrl = item.iaId 
+          ? `https://archive.org/details/${encodeURIComponent(item.iaId)}` 
+          : `https://archive.org/search.php?query=${encodeURIComponent(item.title + ' ' + item.author)}`;
+
+        // 3. Project Gutenberg Direct Search
+        const gutenbergUrl = `https://www.gutenberg.org/ebooks/search/?query=${encodeURIComponent(item.title)}`;
+
+        // 4. Official DOI Resolver
+        const officialDoiUrl = item.doi ? `https://doi.org/${encodeURIComponent(item.doi)}` : null;
+
+        const coverHtml = item.cover 
+          ? `<img src="${item.cover}" class="book-cover" alt="Cover" loading="lazy" onerror="this.outerHTML='<div class=\\'book-placeholder\\'>📖</div>'">` 
+          : `<div class="book-placeholder">${item.type === 'paper' ? '🔬' : '📚'}</div>`;
 
         card.innerHTML = `
           <div>
             <div class="book-card-top">
               ${coverHtml}
               <div class="book-info">
-                <h4>${escapeHtml(it.title)}</h4>
-                <div class="book-author">${escapeHtml(it.author)}</div>
-                <div class="book-meta">${escapeHtml(it.year)} • ${escapeHtml(it.publisher)}</div>
+                <h4 title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h4>
+                <div class="book-author" title="${escapeHtml(item.author)}">${escapeHtml(item.author)}</div>
+                <div class="book-meta">${escapeHtml(item.year)} • ${escapeHtml(item.publisher)}</div>
+                
+                <div class="badge-row">
+                  ${item.isbn ? `<span class="meta-tag">ISBN: ${escapeHtml(item.isbn)}</span>` : ''}
+                  ${item.iaId ? `<span class="meta-tag">IA: Verified</span>` : ''}
+                  ${item.doi ? `<span class="meta-tag">DOI Active</span>` : ''}
+                </div>
               </div>
             </div>
           </div>
-          <div>
-            <a href="${linkUrl}" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
-              View Public Record ↗
-            </a>
+
+          <div class="actions-container">
+            ${officialDoiUrl ? `
+              <a href="${officialDoiUrl}" target="_blank" rel="noopener noreferrer" class="btn-main-openlib btn-doi-full">
+                <span>🔬 Open via Official DOI Resolver (doi.org) ↗</span>
+              </a>
+            ` : `
+              <a href="${openLibUrl}" target="_blank" rel="noopener noreferrer" class="btn-main-openlib">
+                <span>📖 Open Library (Borrow & Read) ↗</span>
+              </a>
+            `}
+
+            <div class="sub-actions-grid">
+              <a href="${iaUrl}" target="_blank" rel="noopener noreferrer" class="btn-sub-link" title="Open on Internet Archive">
+                <span>🏛️ Internet Archive ↗</span>
+              </a>
+              <a href="${gutenbergUrl}" target="_blank" rel="noopener noreferrer" class="btn-sub-link" title="Check Public Domain on Project Gutenberg">
+                <span>📚 Gutenberg (EPUB) ↗</span>
+              </a>
+            </div>
           </div>
         `;
-        resultsGrid.appendChild(card);
+
+        grid.appendChild(card);
       });
+
+      container.style.display = 'block';
     }
 
     function escapeHtml(str) {
@@ -702,6 +651,14 @@
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
       }[m]));
     }
+
+    // Theme Switcher
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      document.documentElement.classList.toggle('light', !isDark);
+      document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+    });
   </script>
 </body>
 </html>
